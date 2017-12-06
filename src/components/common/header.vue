@@ -4,7 +4,7 @@
             <!--Logo area-->
             <el-col :xs="12" :sm="12" :md="4">
                 <div class="logo">  
-                    <span class="logo_prefix">钛科圈</span><span class="logo_suffix">物联网</span>
+                    <span class="logo_prefix">钛科圈</span><span class="logo_suffix"> 物联网</span>
                 </div>
             </el-col>
 

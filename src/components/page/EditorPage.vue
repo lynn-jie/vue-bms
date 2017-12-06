@@ -5,6 +5,7 @@
 		<div class="nav">
 			<el-breadcrumb separator-class="el-icon-arrow-right">
 				<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+				
 				<el-breadcrumb-item>客户管理</el-breadcrumb-item>
 			</el-breadcrumb>
 
@@ -63,15 +64,17 @@
 			</el-table-column>
 			<el-table-column prop="telephone" label="电话" width="180">
 			</el-table-column>
+			
 			<el-table-column prop="number" label="数量">
 			</el-table-column>
 			<el-table-column prop="date" label="日期" width="180">
 			</el-table-column>
 
 			<el-table-column label="操作">
-				<template slot-scope="scope">
+					<template slot-scope="scope">
 
 					<!--<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">修改</el-button>-->
+					
 					<router-link to="../MarkdownPage">
 						<el-button size="mini" type="warning">机构管理</el-button>
 					</router-link>
@@ -80,21 +83,31 @@
 
 				</template>
 			</el-table-column>
-
 		</el-table>
-
+		
+		 <div class="paging block">
+		 	
+   <!-- <span class="demonstration">调整每页显示条数</span>-->
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentPage2"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="100"
+      layout="sizes, prev, pager, next"
+      :total="1000">
+    </el-pagination>
+  </div>
 	</div>
-
 </template>
 
 <script>
 	import vPageTitle from '../common/pageTitle.vue';
-	import { quillEditor } from 'vue-quill-editor';
+	
 
 	export default {
 		components: {
-			vPageTitle,
-			//quillEditor
+			vPageTitle
 
 		},
 		data() {
@@ -134,52 +147,12 @@
 				formLabelWidth: '120px'
 			}
 
-		},
-		methods: {
-
-			onEditorBlur(editor) {
-				console.log('editor blur!', editor)
-			},
-			onEditorFocus(editor) {
-				console.log('editor focus!', editor)
-			},
-			onEditorReady(editor) {
-				console.log('editor ready!', editor)
-			}
-		},
-		computed: {
-			editor() {
-				return this.$refs.myTextEditor.quillEditor;
-			}
 		}
 	}
 </script>
 
 <style scoped>
-	.el-col {
-		margin-bottom: 16px;
-	}
-	
-	.material-icons {
-		font-size: 80px;
-		color: #ddd;
-	}
-	
-	.ql-container .ql-editor {
-		min-height: 20em;
-		padding-bottom: 1em;
-		max-height: 25em;
-	}
-	
-	.html {
-		height: 9em;
-		overflow-y: auto;
-		border: 1px solid #ccc;
-		border-top: none;
-		resize: vertical;
-		background-color: #fff;
-	}
-	
+
 	.btn {
 		margin-bottom: 20px;
 	}
@@ -187,5 +160,9 @@
 	.nav {
 		margin-bottom: 20px;
 		font-size: 30px;
+	}
+	.paging{
+		margin-top: 30px;
+		text-align: center;
 	}
 </style>
