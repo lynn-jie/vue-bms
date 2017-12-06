@@ -4,7 +4,7 @@
             <!--Logo area-->
             <el-col :xs="12" :sm="12" :md="4">
                 <div class="logo">  
-                    <span class="logo_prefix">JSPang</span><span class="logo_suffix">Admin</span>
+                    <span class="logo_prefix">钛科圈</span><span class="logo_suffix">物联网</span>
                 </div>
             </el-col>
 
@@ -21,8 +21,8 @@
             <!-- header right area-->
             <el-col :xs="24" :sm="12" :md="4">
                 <div class="website">
-                    <span>Website:</span>
-                    <span>www.jspang.com</span>
+                    <!--<span>Website:</span>-->
+                    <span>www.taikequan.com</span>
                 </div>
             </el-col>
  

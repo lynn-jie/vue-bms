@@ -1,89 +1,191 @@
 <template>
-    <div >
-        <v-pageTitle vtitle="EditorPage"></v-pageTitle>
+	<div>
+		<v-pageTitle vtitle="EditorPage"></v-pageTitle>
 
+		<div class="nav">
+			<el-breadcrumb separator-class="el-icon-arrow-right">
+				<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+				<el-breadcrumb-item>客户管理</el-breadcrumb-item>
+			</el-breadcrumb>
 
-        <!-- use with components - bidirectional data binding（双向数据绑定） -->
-        <quill-editor ref="myTextEditor"
-                    v-model="content"
-                    :config="editorOption"
-                    @blur="onEditorBlur($event)"
-                    @focus="onEditorFocus($event)"
-                    @ready="onEditorReady($event)">
-        </quill-editor>
+		</div>
 
-         <div class="html ql-editor" v-html="content"></div>
+		<div class="btn">
 
+			<el-button size="medium" type="primary" @click="dialogFormVisible = true">新增</el-button>
 
+			<!--内嵌表格-->
 
-        
+			<el-dialog title="新增" :visible.sync="dialogFormVisible">
+				<el-form :model="form">
 
+					<!--<el-form-item label="角色选择" :label-width="formLabelWidth">
+						<el-select v-model="form.region" placeholder="请选择角色">
+							<el-option label="管理员" value="shanghai"></el-option>
+							<el-option label="用户" value="beijing"></el-option>
+						</el-select>
+					</el-form-item>-->
 
-    </div>
+					<el-form-item label="客户名称" :label-width="formLabelWidth">
+						<el-input v-model="form.name" auto-complete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="电话" :label-width="formLabelWidth">
+						<el-input v-model="form.phone" auto-complete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="数量" :label-width="formLabelWidth">
+						<el-input v-model="form.number" auto-complete="off"></el-input>
+					</el-form-item>
 
+					<el-form-item label="日期" :label-width="formLabelWidth">
+						<el-col :span="11">
+							<el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+						</el-col>
+						
+					</el-form-item>
 
+				</el-form>
+
+				<div slot="footer" class="dialog-footer">
+					<el-button @click="dialogFormVisible = false">取 消</el-button>
+					<el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+				</div>
+			</el-dialog>
+			
+			<el-button size="medium" type="success">刷新</el-button>
+			<el-button size="medium" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+
+		</div>
+
+		<el-table :data="tableData" style="width: 100%" class="table">
+			<el-table-column type="selection" width="55">
+			</el-table-column>
+			<el-table-column prop="name" label="客户名称" width="180">
+			</el-table-column>
+			<el-table-column prop="telephone" label="电话" width="180">
+			</el-table-column>
+			<el-table-column prop="number" label="数量">
+			</el-table-column>
+			<el-table-column prop="date" label="日期" width="180">
+			</el-table-column>
+
+			<el-table-column label="操作">
+				<template slot-scope="scope">
+
+					<!--<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">修改</el-button>-->
+					<router-link to="../MarkdownPage">
+						<el-button size="mini" type="warning">机构管理</el-button>
+					</router-link>
+
+					<el-button size="mini" type="primary" @click="dialogFormVisible = true">修改</el-button>
+
+				</template>
+			</el-table-column>
+
+		</el-table>
+
+	</div>
 
 </template>
 
 <script>
-    import vPageTitle from '../common/pageTitle.vue';
-    import { quillEditor } from 'vue-quill-editor';
-    
+	import vPageTitle from '../common/pageTitle.vue';
+	import { quillEditor } from 'vue-quill-editor';
 
-    
-   
-    export default {
-        components:{
-            vPageTitle,quillEditor
-        },
-        data(){
-            return{
-                content:'<h2>JSPangAdmin 是一个由Vue2为框架开发的后台管理系统。</h2><h3>你可以随意的使用并编辑它，希望可以帮助前端开发者减轻开发步骤，让大家有时间泡妞和享受生活。</h3>',
-                editorOption: {}
-            }
-        },
-        methods: {  
-             onEditorBlur(editor) {
-                    console.log('editor blur!', editor)
-                },
-                onEditorFocus(editor) {
-                    console.log('editor focus!', editor)
-                },
-                onEditorReady(editor) {
-                    console.log('editor ready!', editor)
-                }    
-        },
-        computed: {
-            editor() {
-                return this.$refs.myTextEditor.quillEditor;
-            }
-        }
-    }
+	export default {
+		components: {
+			vPageTitle,
+			//quillEditor
+
+		},
+		data() {
+			return {
+				tableData: [{
+					date: '2016-05-02',
+					name: ' 南京蒙特梭利幼儿园 ',
+					telephone: '025-5201314',
+					number: '15'
+				}, {
+					date: '2016-05-04',
+					name: ' 南京蒙特梭利幼儿园 ',
+					telephone: '025-5201314',
+					number: '15'
+				}, {
+					date: '2016-05-01',
+					name: ' 南京蒙特梭利幼儿园 ',
+					telephone: '025-5201314',
+					number: '15'
+				}, {
+					date: '2016-05-03',
+					name: ' 南京蒙特梭利幼儿园 ',
+					telephone: '025-5201314',
+					number: '15'
+				}],
+				dialogFormVisible: false,
+				form: {
+					name: '',
+					region: '',
+					date1: '',
+					date2: '',
+					delivery: false,
+					type: [],
+					resource: '',
+					desc: ''
+				},
+				formLabelWidth: '120px'
+			}
+
+		},
+		methods: {
+
+			onEditorBlur(editor) {
+				console.log('editor blur!', editor)
+			},
+			onEditorFocus(editor) {
+				console.log('editor focus!', editor)
+			},
+			onEditorReady(editor) {
+				console.log('editor ready!', editor)
+			}
+		},
+		computed: {
+			editor() {
+				return this.$refs.myTextEditor.quillEditor;
+			}
+		}
+	}
 </script>
 
 <style scoped>
-    .el-col{
-        margin-bottom:16px;
-    }
-    .material-icons{
-        font-size:80px;
-        color:#ddd;
-    }
-   
-    .ql-container .ql-editor {
-        min-height: 20em;
-        padding-bottom: 1em;
-        max-height: 25em;
-        
-    }
-    .html {
-        height: 9em;
-        overflow-y: auto;
-        border: 1px solid #ccc;
-        border-top: none;
-        resize: vertical;
-        background-color:#fff;
-    }
- 
-    
+	.el-col {
+		margin-bottom: 16px;
+	}
+	
+	.material-icons {
+		font-size: 80px;
+		color: #ddd;
+	}
+	
+	.ql-container .ql-editor {
+		min-height: 20em;
+		padding-bottom: 1em;
+		max-height: 25em;
+	}
+	
+	.html {
+		height: 9em;
+		overflow-y: auto;
+		border: 1px solid #ccc;
+		border-top: none;
+		resize: vertical;
+		background-color: #fff;
+	}
+	
+	.btn {
+		margin-bottom: 20px;
+	}
+	
+	.nav {
+		margin-bottom: 20px;
+		font-size: 30px;
+	}
 </style>
