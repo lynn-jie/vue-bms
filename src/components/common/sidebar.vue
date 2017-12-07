@@ -11,20 +11,21 @@
                 <template slot="title">
                
                     <span class="sb-icon"><i class="material-icons">perm_data_setting</i></span>
-                    <span class="sb-cn">客户</span>
+                    <span class="sb-cn">客户中心</span>
                  
                 </template>
-                <el-menu-item index="EditorPage">客户管理</el-menu-item>
-                <el-menu-item index="MarkdownPage">空间管理</el-menu-item>
-                <el-menu-item index="TodoList">成员管理</el-menu-item>
-                     
+                
+                <el-menu-item index="customer">客户管理</el-menu-item>
+                <el-menu-item index="organization">机构管理</el-menu-item>
+                <el-menu-item index="space">空间管理</el-menu-item>
+                <el-menu-item index="member">成员管理</el-menu-item>
                 
             </el-submenu>
 
             <el-submenu index="3">
                 <template slot="title">
                     <span class="sb-icon"><i class="material-icons">pie_chart</i></span>
-                    <span class="sb-cn">设备</span>
+                    <span class="sb-cn">设备中心</span>
                 </template>
                 <el-menu-item index="BasicCharts"> BasicCharts</el-menu-item>
             </el-submenu>
@@ -34,7 +35,8 @@
                     <span class="sb-icon"><i class="material-icons">content_paste</i></span>
                     <span class="sb-cn">用户列表</span>
                 </template>
-                <el-menu-item index="FormInput"> Form Inputs</el-menu-item>
+                
+               <!--Forminput 已经删除-->
                 <el-menu-item index="FormLayouts">  Form Layouts</el-menu-item>
             </el-submenu>
 

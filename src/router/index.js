@@ -3,12 +3,12 @@ import Router from 'vue-router';
 import Home from '@/components/common/Home';
 import DashBoard from '@/components/page/DashBoard';
 import AmCharts from '@/components/page/BasicCharts';
-import FormInput from '@/components/page/FormInput';
 import FormLayouts from '@/components/page/FormLayouts';
 import BasicTables from '@/components/page/BasicTables';
-import EditorPage from '@/components/page/EditorPage';
-import MarkdownPage from '@/components/page/MarkdownPage';
-import TodoList from '@/components/page/TodoListPage';
+import customer from '@/components/page/customer';
+import organization from '@/components/page/organization';
+import space from '@/components/page/space';
+import member from '@/components/page/member';
 
 Vue.use(Router)
 
@@ -27,17 +27,14 @@ export default new Router({
           path:'/DashBoard',
           component:DashBoard
         },{
-          path:'/EditorPage',
-          component:EditorPage
+          path:'/customer',
+          component:customer
         },{
-          path:'/MarkdownPage',
-          component:MarkdownPage
+          path:'/organization',
+          component:organization
         },{
           path:'/BasicCharts',
           component:AmCharts
-        },{
-          path:'/FormInput',
-          component:FormInput
         },{
           path:'/FormLayouts',
           component:FormLayouts
@@ -45,11 +42,13 @@ export default new Router({
           path:'/BasicTables',
           component:BasicTables
         },{
-          path:'/TodoList',
-          component:TodoList
+          path:'/space',
+          component:space
+        },{
+          path:'/member',
+          component:member
         }
         
-
       ]
     }
   ]
