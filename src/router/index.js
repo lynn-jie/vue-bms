@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/common/Home';
 import DashBoard from '@/components/page/DashBoard';
-import AmCharts from '@/components/page/BasicCharts';
+import equipment from '@/components/page/equipment';
 import FormLayouts from '@/components/page/FormLayouts';
 import BasicTables from '@/components/page/BasicTables';
 import customer from '@/components/page/customer';
@@ -33,8 +33,8 @@ export default new Router({
           path:'/organization',
           component:organization
         },{
-          path:'/BasicCharts',
-          component:AmCharts
+          path:'/equipment',
+          component:equipment
         },{
           path:'/FormLayouts',
           component:FormLayouts

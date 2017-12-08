@@ -1,14 +1,12 @@
 <template>
 	<div>
 		<!--<v-pageTitle vtitle="EditorPage"></v-pageTitle>-->
-
-		<h2>客户管理</h2>
-
+		<h2>设备管理</h2>
 		<div class="nav">
 			<el-breadcrumb separator-class="el-icon-arrow-right">
 				<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+				<el-breadcrumb-item>设备管理</el-breadcrumb-item>
 
-				<el-breadcrumb-item>客户管理</el-breadcrumb-item>
 			</el-breadcrumb>
 
 		</div>
@@ -31,17 +29,31 @@
 						</el-select>
 					</el-form-item>-->
 
-					<el-form-item label="客户名称" :label-width="formLabelWidth">
+					<el-form-item label="真实姓名" :label-width="formLabelWidth">
 						<el-input v-model="form.name" auto-complete="off"></el-input>
 					</el-form-item>
-					<el-form-item label="电话" :label-width="formLabelWidth">
-						<el-input v-model="form.phone" auto-complete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="数量" :label-width="formLabelWidth">
-						<!--<el-input v-model="form.number" auto-complete="off"></el-input>-->
-						<el-input-number v-model="num1" @change="handleChange" :min="0" :max="500" label="请输入"></el-input-number>
+
+					<el-form-item label="角色类型" :label-width="formLabelWidth">
+						<el-input v-model="form.role" auto-complete="off"></el-input>
 					</el-form-item>
 
+					<!--下拉菜单选择后期开发-->
+					<!--<el-dropdown>
+						<span class="el-dropdown-link">选择<i class="el-icon-arrow-down el-icon--right"></i></span>
+						<el-dropdown-menu slot="dropdown">
+							<el-dropdown-item>用户</el-dropdown-item>
+							<el-dropdown-item>维护员</el-dropdown-item>
+							<el-dropdown-item disabled>管理员</el-dropdown-item>
+							<el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+						</el-dropdown-menu>
+					</el-dropdown>-->
+
+					<el-form-item label="电话" :label-width="formLabelWidth">
+						<el-input v-model="form.telephone" auto-complete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="邮箱" :label-width="formLabelWidth">
+						<el-input v-model="form.email" auto-complete="off"></el-input>
+					</el-form-item>
 					<el-form-item label="日期" :label-width="formLabelWidth">
 						<el-col :span="11">
 							<el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
@@ -65,28 +77,21 @@
 		<el-table :data="tableData" style="width: 100%" class="table">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
-			<el-table-column prop="name" label="客户名称" width="180">
+			<el-table-column prop="controlid" label="控制器ID">
 			</el-table-column>
-			<el-table-column prop="tel" label="电话" width="180">
+			<el-table-column prop="status" label="设备状态">
 			</el-table-column>
-
-			<el-table-column prop="fax" label="机构数量">
+			<el-table-column prop="time" label="已使用时长" width="180">
 			</el-table-column>
-			<el-table-column prop="createTime" label="创建日期" width="180">
+			<el-table-column prop="surplus" label="账户剩余时长 ">
 			</el-table-column>
 
 			<el-table-column label="操作">
 				<template slot-scope="scope">
 
 					<!--<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">修改</el-button>-->
-
-					<router-link to="../organization">
-
-						<el-button size="mini" type="warning">机构管理</el-button>
-
-					</router-link>
-
-					<el-button size="mini" type="primary" @click="dialogFormVisible = true">修改</el-button>
+					<el-switch style="display: block" v-model="value4" active-color="#13ce66" inactive-color="#ff4949" active-text="按月付费" inactive-text="按年付费">
+					</el-switch>
 
 				</template>
 			</el-table-column>
@@ -95,44 +100,45 @@
 		<div class="paging block">
 
 			<!-- <span class="demonstration">调整每页显示条数</span>-->
-			<el-pagination :current-page.sync="currentPage2" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="sizes, prev, pager, next" :total="1000">
+			<el-pagination :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="sizes, prev, pager, next" :total="1000">
 			</el-pagination>
+
+			<!--@size-change="handleSizeChange"-->
+			<!--@current-change="handleCurrentChange"-->
+			<!--:current-page.sync="currentPage2"-->
 		</div>
+
 	</div>
 </template>
 
 <script>
 	//	import vPageTitle from '../common/pageTitle.vue';
-	import axios from 'axios';
-
 	export default {
-
 		data() {
 			return {
-				num1: '',
-				tableData: [
-//				{
-//					date: '2016-05-02',
-//					name: ' 南京蒙特梭利幼儿园 ',
-//					telephone: '025-5201314',
-//					number: '15'
-//				}, {
-//					date: '2016-05-04',
-//					name: ' 南京蒙特梭利幼儿园 ',
-//					telephone: '025-5201314',
-//					number: '15'
-//				}, {
-//					date: '2016-05-01',
-//					name: ' 南京蒙特梭利幼儿园 ',
-//					telephone: '025-5201314',
-//					number: '15'
-//				}, {
-//					date: '2016-05-03',
-//					name: ' 南京蒙特梭利幼儿园 ',
-//					telephone: '025-5201314',
-//					number: '15'
-//				}
-				],
+				tableData: [{
+					controlid: 'V12332JSA12SH',
+					status: '离线',
+					time: '250小时',
+					surplus: '2800小时'
+				}, {
+					controlid: 'X12332JSA12SH',
+					status: '在线',
+					time: '250小时',
+					surplus: '2800小时'
+
+				}, {
+					controlid: 'Q12332JSA12SH',
+					status: '在线',
+					time: '250小时',
+					surplus: '2808小时'
+				}, {
+					controlid: 'Z12332JSA12SH',
+					status: '离线',
+					time: '250小时',
+					surplus: '1280小时'
+				}],
+				value4: true,
 				dialogFormVisible: false,
 				form: {
 					name: '',
@@ -148,33 +154,6 @@
 			}
 
 		},
-		  created() {
-        //读取常用商品列表
-        axios.get('/manager/customer/search?n=100&p=1',')
-            .then(response => {
-              console.log(123);
-              this.tableData = response.data;
-            
-            	
-            })
-            .catch(error => {
-                console.log("12312123");
-//              alert('网络错误，不能访问');
-            })
-        //读取分类商品列表
-       
-    },
-//  axios.get('/user?ID=12345')
-//.then(function (response) {
-//  console.log(response);
-//})
-//.catch(function (error) {
-//  console.log(error);
-//});
-    
-    
-    
-		
 		methods: {
 			open6() {
 				this.$confirm('此操作将永久删除该数据 , 是否继续呢?', '提示', {
@@ -201,9 +180,6 @@
 					message: '刷新成功了哟，点击可关闭',
 					type: 'success'
 				});
-			},
-			handleChange(value) {
-				console.log(value);
 			}
 		}
 	}

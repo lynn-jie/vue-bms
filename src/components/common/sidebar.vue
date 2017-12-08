@@ -27,17 +27,17 @@
                     <span class="sb-icon"><i class="material-icons">pie_chart</i></span>
                     <span class="sb-cn">设备中心</span>
                 </template>
-                <el-menu-item index="BasicCharts"> BasicCharts</el-menu-item>
+                <el-menu-item index="equipment">设备列表</el-menu-item>
             </el-submenu>
 
             <el-submenu index="4">
                 <template slot="title">
                     <span class="sb-icon"><i class="material-icons">content_paste</i></span>
-                    <span class="sb-cn">用户列表</span>
+                    <span class="sb-cn">用户中心</span>
                 </template>
                 
                <!--Forminput 已经删除-->
-                <el-menu-item index="FormLayouts">  Form Layouts</el-menu-item>
+                <el-menu-item index="FormLayouts">用户列表</el-menu-item>
             </el-submenu>
 
              <el-submenu index="5">
